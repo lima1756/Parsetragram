@@ -1,18 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_background"
+    android:fitsSystemWindows="true"
+    >
 
     <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/billabong"
+        android:gravity="center"
+        android:text="Parsetagram"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:textColor="@android:color/background_light"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:id="@+id/svLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_below="@+id/tvLogo"
+        android:layout_centerHorizontal="true">
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="center">
+
+                <EditText
+                    android:id="@+id/etUser"
+                    android:layout_width="301dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/textbox_background"
+                    android:ems="10"
+                    android:hint="   Username"
+                    android:inputType="textPersonName"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#DDDDDD"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLogo"
+                    android:layout_marginBottom="30dp"/>
+
+                <EditText
+                    android:id="@+id/etPass"
+                    android:layout_width="301dp"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etUser"
+                    android:layout_below="@+id/etUser"
+                    android:background="@drawable/textbox_background"
+                    android:ems="10"
+                    android:hint="   Password"
+                    android:inputType="textPassword"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#dddddd"
+                    android:layout_marginBottom="30dp"/>
+            </LinearLayout>
+
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:id="@+id/rlSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center"
+        android:layout_below="@+id/rlLogIn"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toBottomOf="@+id/rlLogIn"
+        android:gravity="center"
+        >
 
-</android.support.constraint.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/pbSignUp"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_alignTop="@+id/btnSignUp"
+            android:layout_alignEnd="@+id/btnSignUp"
+            android:layout_alignStart="@id/btnSignUp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="299dp"
+            android:layout_height="39dp"
+            android:background="@drawable/btn_background"
+            android:text="@string/sign_up"
+            android:textColor="#50FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintVertical_bias="0.0"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@+id/svLogin"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toBottomOf="@+id/svLogin"
+        android:gravity="center"
+        >
+
+        <ProgressBar
+            android:id="@+id/pbLogIn"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_alignTop="@+id/btnLogin"
+            android:layout_alignEnd="@+id/btnLogin"
+            android:layout_alignStart="@id/btnLogin"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="299dp"
+            android:layout_height="39dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_background"
+            android:text="@string/log_in"
+            android:textColor="#50FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="25dp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

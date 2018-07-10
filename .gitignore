@@ -61,3 +61,5 @@ local.properties
 # PDT-specific
 
 secrets.xml
+
+*.DS_Store
