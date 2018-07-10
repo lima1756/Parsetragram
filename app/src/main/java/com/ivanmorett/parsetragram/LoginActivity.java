@@ -32,6 +32,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            launchHome();
+            return;
+        }
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -50,15 +55,19 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void launchHome(){
+        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
+    }
+
     public void login(String user, String pass){
         disableButton(btnLogin, pbLogIn);
         ParseUser.logInInBackground(user, pass, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if(e==null){
-                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(i);
-                    finish();
+                    launchHome();
                 }
                 else {
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
