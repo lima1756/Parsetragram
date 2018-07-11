@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.ivanmorett.parsetragram.GlideApp;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
+import com.ivanmorett.parsetragram.interfaces.ChangeableFragment;
 import com.parse.ParseFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,9 +28,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     private List<Post> mPosts;
     private Context context;
+    private ChangeableFragment changeableFragment;
 
-    public PostAdapter(List<Post> mPosts){
+    public PostAdapter(List<Post> mPosts, ChangeableFragment changeableFragment){
         this.mPosts = mPosts;
+        this.changeableFragment = changeableFragment;
     }
 
     @NonNull
@@ -96,6 +98,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         @OnClick(R.id.btnComments)
         public void comments(){
             // TODO
+        }
+
+        @OnClick({R.id.ivPostUserImage, R.id.tvPostUsername})
+        public void viewProfile(){
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                changeableFragment.changeToUserFragment(mPosts.get(position).getUser());
+            }
         }
 
     }

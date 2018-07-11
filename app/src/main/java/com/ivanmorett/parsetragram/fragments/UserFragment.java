@@ -65,6 +65,8 @@ public class UserFragment extends Fragment{
                 .into(ivProfileImage);
 
 
+
+
     }
 
     @OnClick(R.id.btnProfileButton)

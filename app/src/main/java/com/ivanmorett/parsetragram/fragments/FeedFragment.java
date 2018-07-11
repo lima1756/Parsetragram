@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
 import com.ivanmorett.parsetragram.adapters.PostAdapter;
+import com.ivanmorett.parsetragram.interfaces.ChangeableFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
@@ -38,7 +39,7 @@ public class FeedFragment extends Fragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         posts = new ArrayList<>();
-        adapter = new PostAdapter(posts);
+        adapter = new PostAdapter(posts, (ChangeableFragment) getActivity());
 
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext()));
         rvFeed.setAdapter(adapter);
