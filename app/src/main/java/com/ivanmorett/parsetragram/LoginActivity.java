@@ -55,11 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void launchHome(){
-        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(i);
-        finish();
-    }
 
     public void login(String user, String pass){
         disableButton(btnLogin, pbLogIn);
@@ -111,5 +106,11 @@ public class LoginActivity extends AppCompatActivity {
         btn.setClickable(true);
         pb.setVisibility(View.GONE);
         btn.setText(textId);
+    }
+
+    private void launchHome(){
+        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(i);
+        finish();
     }
 }

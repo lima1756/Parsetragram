@@ -2,4 +2,7 @@
     <string name="app_name">Parsetragram</string>
     <string name="sign_up">Sign Up</string>
     <string name="log_in">Log In</string>
+    <string name="home">Home</string>
+    <string name="user">User</string>
+    <string name="new_post">New Post</string>
 </resources>
