@@ -12,9 +12,11 @@ import android.view.MenuItem;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.fragments.CameraFragment;
 import com.ivanmorett.parsetragram.fragments.FeedFragment;
+import com.ivanmorett.parsetragram.fragments.UserFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
         final FeedFragment feedFragment = new FeedFragment();
         final CameraFragment cameraFragment = new CameraFragment();
+        final UserFragment userFragment = new UserFragment();
 
         changeFragment(feedFragment);
 
@@ -47,7 +50,8 @@ public class HomeActivity extends AppCompatActivity {
                         changeFragment(cameraFragment);
                         return true;
                     case R.id.action_user:
-                        // do something here
+                        userFragment.setUser(ParseUser.getCurrentUser());
+                        changeFragment(userFragment);
                         return true;
                 }
                 return false;

@@ -73,6 +73,7 @@ public class CameraFragment extends Fragment{
         super.onPause();
     }
 
+
     @OnClick(R.id.btnCamera)
     public void shootPhoto(){
         camera.captureImage(new CameraKitEventCallback<CameraKitImage>() {
@@ -102,12 +103,14 @@ public class CameraFragment extends Fragment{
         llSubmit.setVisibility(View.GONE);
         btnCamera.setVisibility(View.VISIBLE);
         camera.start();
+        clearDescription();
     }
+
 
     @OnClick(R.id.btnSubmit)
     public void submit(){
         if(etDescription.getText().toString().equals("")){
-            Toast.makeText(getContext(), "Please insert a caption", Toast.LENGTH_SHORT);
+            Toast.makeText(getContext(), "Please insert a caption", Toast.LENGTH_SHORT).show();
             return;
         }
         try {
@@ -115,6 +118,7 @@ public class CameraFragment extends Fragment{
         } catch (IOException e) {
             Toast.makeText(getContext(), "There was an error, please try again.", Toast.LENGTH_SHORT).show();
         }
+        clearDescription();
     }
 
     public void submitPost(String description, File image){
@@ -129,6 +133,12 @@ public class CameraFragment extends Fragment{
                 cancel();
             }
         });
+
+    }
+
+    private void clearDescription(){
+        etDescription.setText("");
+        etDescription.clearFocus();
     }
 
 

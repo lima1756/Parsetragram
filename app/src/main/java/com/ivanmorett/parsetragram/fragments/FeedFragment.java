@@ -2,6 +2,7 @@ package com.ivanmorett.parsetragram.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 public class FeedFragment extends Fragment{
 
     @BindView(R.id.rvFeed) RecyclerView rvFeed;
+    @BindView(R.id.swipeFeed) SwipeRefreshLayout swipeFeed;
     private PostAdapter adapter;
     private ArrayList<Post> posts;
 
@@ -40,24 +42,34 @@ public class FeedFragment extends Fragment{
 
         rvFeed.setLayoutManager(new LinearLayoutManager(getContext()));
         rvFeed.setAdapter(adapter);
+
+
+
+        swipeFeed.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                populateFeed();
+            }
+        });
         
         populateFeed();
     }
 
     private void populateFeed(){
+        swipeFeed.setRefreshing(true);
         new Post.Query().getTop().withUser().findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> objects, ParseException e) {
                 if(e==null){
+                    posts.clear();
                     posts.addAll(objects);
                     adapter.notifyDataSetChanged();
                 }
                 else{
                     e.printStackTrace();
                 }
+               swipeFeed.setRefreshing(false);
             }
-
-
         });
     }
 
