@@ -43,13 +43,13 @@ public class UserFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
 
-        this.selfUser = user == ParseUser.getCurrentUser();
+        this.selfUser = ParseUser.getCurrentUser().getUsername().equals(user.getUsername());
 
         tvUserName.setText(user.getUsername());
 
-        changeCounters(view, R.id.counterFollowers, 0);
-        changeCounters(view, R.id.counterFollowing, 0);
-        changeCounters(view, R.id.counterPosts, 0);
+        changeCounters(view, R.id.counterFollowers, 0, "Followers");
+        changeCounters(view, R.id.counterFollowing, 0, "Following");
+        changeCounters(view, R.id.counterPosts, 0, "Posts");
 
 
         if(selfUser){
@@ -85,8 +85,8 @@ public class UserFragment extends Fragment{
         this.user = user;
     }
 
-    private void changeCounters(View view, int counterId, int count){
-        TextView tvCount = view.findViewById(counterId).findViewById(R.id.tvCount);
-        tvCount.setText(count+"");
+    private void changeCounters(View view, int counterId, int count, String description){
+        ((TextView)view.findViewById(counterId).findViewById(R.id.tvCount)).setText(count+"");
+        ((TextView)view.findViewById(counterId).findViewById(R.id.tvName)).setText(description);
     }
 }
