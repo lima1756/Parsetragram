@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivPostUserImage"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@color/ig_purple" />
+
+    <TextView
+        android:id="@+id/tvPostUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivPostUserImage"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/ivPostUserImage"
+        android:text="UserName"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivPostUserImage"
+        app:srcCompat="@drawable/camera_shadow_fill"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="4dp"/>
+
+    <Button
+        android:id="@+id/btnLike"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivPostImage"
+        android:background="@drawable/ufi_heart"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnComments"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/ivPostImage"
+        android:layout_toEndOf="@+id/btnLike"
+        android:background="@drawable/ufi_comment"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        />
+
+    <TextView
+        android:id="@+id/tvPostDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnLike"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:maxLines="2"
+        android:text="TextView"
+        android:textSize="16sp" />
+</RelativeLayout>

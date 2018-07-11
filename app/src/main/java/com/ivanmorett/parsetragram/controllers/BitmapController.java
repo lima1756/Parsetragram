@@ -1,4 +1,4 @@
-package com.ivanmorett.parsetragram;
+package com.ivanmorett.parsetragram.controllers;
 
 import android.content.Context;
 import android.graphics.Bitmap;

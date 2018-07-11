@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.ivanmorett.parsetragram.BitmapController;
+import com.ivanmorett.parsetragram.controllers.BitmapController;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
 import com.parse.ParseException;
@@ -25,7 +25,6 @@ import com.wonderkiln.camerakit.CameraView;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
