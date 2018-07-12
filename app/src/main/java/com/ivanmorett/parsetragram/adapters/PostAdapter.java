@@ -1,6 +1,7 @@
 package com.ivanmorett.parsetragram.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -13,10 +14,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ivanmorett.parsetragram.CommentsActivity;
 import com.ivanmorett.parsetragram.GlideApp;
+import com.ivanmorett.parsetragram.Models.Comment;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
 import com.ivanmorett.parsetragram.constants.Images;
+import com.ivanmorett.parsetragram.controllers.TimeFormatterController;
 import com.ivanmorett.parsetragram.interfaces.ChangeableFragment;
 import com.parse.ParseFile;
 
@@ -64,7 +68,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         caption.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.tvPostDescription.setText(caption);
 
-        holder.tvPostDate.setText(getRelativeTimeAgo(post.getUpdatedAt().toString()));
+        holder.tvPostDate.setText(TimeFormatterController.getRelativeTimeAgo(post.getUpdatedAt().toString()));
 
         GlideApp.with(context)
                 .load(post.getImage().getUrl())
@@ -82,22 +86,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         return mPosts.size();
     }
 
-    private static String getRelativeTimeAgo(String rawDate) {
-        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-        sf.setLenient(true);
 
-        String relativeDate = "";
-        try {
-            long dateMillis = sf.parse(rawDate).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-
-        return relativeDate;
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -119,9 +108,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             // TODO
         }
 
-        @OnClick(R.id.btnComments)
+        @OnClick({R.id.btnComments, R.id.ivPostImage})
         public void comments(){
-            // TODO
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Intent commentActivity = new Intent(context, CommentsActivity.class);
+                commentActivity.putExtra("post", mPosts.get(position));
+                context.startActivity(commentActivity);
+            }
         }
 
         @OnClick({R.id.ivPostUserImage, R.id.tvPostUsername})
@@ -130,6 +124,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             if (position != RecyclerView.NO_POSITION) {
                 changeableFragment.changeToUserFragment(mPosts.get(position).getUser());
             }
+        }
+
+        @OnClick(R.id.tvPostDescription)
+        public void displayAllText(){
+            tvPostDescription.setMaxLines(Integer.MAX_VALUE);
+            tvPostDescription.setEllipsize(null);
         }
 
     }

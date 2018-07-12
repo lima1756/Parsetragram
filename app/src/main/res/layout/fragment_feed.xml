@@ -9,7 +9,7 @@
         android:id="@+id/tbFeed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey_0"
+        android:background="@color/grey_1"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" >
         <ImageView
