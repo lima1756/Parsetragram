@@ -43,15 +43,26 @@ public class Post extends ParseObject {
         public Query(){
             super(Post.class);
         }
+        private int limit;
 
-        public Query getTop(){
-            setLimit(20);
-            orderByDescending("createdAt");
+        public Query orderByDescending(String string){
+            super.orderByDescending("createdAt");
             return this;
         }
 
         public Query withUser(){
             include(KEY_USER);
+            return this;
+        }
+
+        public Query setLimit(int limit){
+            this.limit = limit>0?limit:20;
+            super.setLimit(limit);
+            return this;
+        }
+
+        public Query getPage(int page){
+            setSkip(limit * page);
             return this;
         }
     }

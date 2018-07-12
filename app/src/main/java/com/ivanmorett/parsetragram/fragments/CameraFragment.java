@@ -133,7 +133,6 @@ public class CameraFragment extends Fragment{
                 cancel();
             }
         });
-
     }
 
     private void clearDescription(){
