@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.ivanmorett.parsetragram.GlideApp;
 import com.ivanmorett.parsetragram.LoginActivity;
 import com.ivanmorett.parsetragram.R;
+import com.ivanmorett.parsetragram.constants.Images;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import butterknife.BindView;
@@ -59,8 +61,9 @@ public class UserFragment extends Fragment{
             btnProfileButton.setText("Follow");
         }
 
+        ParseFile profileImg=this.user.getParseFile("profileImg");
         GlideApp.with(getContext())
-                .load(user.getParseFile("profileImg").getUrl())
+                .load(profileImg!=null?profileImg.getUrl(): Images.NO_PROFILE_IMG)
                 .circleCrop()
                 .into(ivProfileImage);
 

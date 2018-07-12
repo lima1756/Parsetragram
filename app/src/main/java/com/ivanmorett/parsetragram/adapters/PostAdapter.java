@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,13 @@ import android.widget.TextView;
 import com.ivanmorett.parsetragram.GlideApp;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
+import com.ivanmorett.parsetragram.constants.Images;
 import com.ivanmorett.parsetragram.interfaces.ChangeableFragment;
 import com.parse.ParseFile;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,13 +64,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         caption.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.tvPostDescription.setText(caption);
 
+        holder.tvPostDate.setText(getRelativeTimeAgo(post.getUpdatedAt().toString()));
+
         GlideApp.with(context)
                 .load(post.getImage().getUrl())
                 .into(holder.ivPostImage);
 
         ParseFile profileImg = post.getUser().getParseFile("profileImg");
         GlideApp.with(context)
-                .load(post.getUser().getParseFile("profileImg")!=null?profileImg.getUrl():null)
+                .load(profileImg!=null?profileImg.getUrl(): Images.NO_PROFILE_IMG)
                 .circleCrop()
                 .into(holder.ivPostUserImage);
     }
@@ -74,6 +80,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
         return mPosts.size();
+    }
+
+    private static String getRelativeTimeAgo(String rawDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.setLenient(true);
+
+        String relativeDate = "";
+        try {
+            long dateMillis = sf.parse(rawDate).getTime();
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return relativeDate;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -84,6 +107,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         @BindView(R.id.btnLike) Button btnLike;
         @BindView(R.id.btnComments) Button btnComments;
         @BindView(R.id.tvPostDescription) TextView tvPostDescription;
+        @BindView(R.id.tvPostDate) TextView tvPostDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -109,4 +133,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         }
 
     }
+
 }

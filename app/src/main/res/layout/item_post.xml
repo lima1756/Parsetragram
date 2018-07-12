@@ -68,6 +68,17 @@
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:maxLines="2"
+        android:ellipsize="end"
         android:text="TextView"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvPostDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvPostDescription"
+        android:layout_below="@+id/tvPostDescription"
+        android:layout_marginTop="0dp"
+        android:text="RelativeStamp"
+        android:textSize="11sp" />
 </RelativeLayout>

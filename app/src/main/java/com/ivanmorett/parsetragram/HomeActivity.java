@@ -39,7 +39,6 @@ public class HomeActivity extends AppCompatActivity implements ChangeableFragmen
         ButterKnife.bind(this);
 
 
-
         changeFragment(feedFragment);
 
         bnBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,10 @@ import com.ivanmorett.parsetragram.interfaces.ChangeableFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,16 +52,10 @@ public class FeedFragment extends Fragment{
         rvFeed.setAdapter(adapter);
 
         rvFeed.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                Log.d("onScrollStateChanged", newState+"");
-            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Log.d("onScrolled", dy+"");
                 int pastVisiblesItems, visibleItemCount, totalItemCount;
                 if(dy > 0) //check for scroll down
                 {
@@ -110,6 +107,5 @@ public class FeedFragment extends Fragment{
         posts.clear();
         loadMorePosts();
     }
-
 
 }
