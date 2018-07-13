@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.view.View;
@@ -42,6 +43,7 @@ public class CommentsActivity extends AppCompatActivity {
     @BindView(R.id.rvComments) RecyclerView rvComments;
     @BindView(R.id.swipeComments) SwipeRefreshLayout swipeComments;
     @BindView(R.id.etNewComment) EditText etNewComment;
+    @BindView(R.id.tbComments) Toolbar tbComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,11 @@ public class CommentsActivity extends AppCompatActivity {
         // Retrieving original post data
         Intent i = getIntent();
         post = i.getParcelableExtra("post");
+
+        // Configuring toolbar
+        setSupportActionBar(tbComments);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Setting original post data
         String originalUser = post.getUser().getUsername();
@@ -152,5 +159,11 @@ public class CommentsActivity extends AppCompatActivity {
                 etNewComment.setText("");
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

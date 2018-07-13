@@ -24,9 +24,9 @@ The following **optional** features are implemented:
 - [x] User should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using a Bottom Navigation View.
 - [x] User can load more posts once he or she reaches the bottom of the feed using infinite scrolling.
 - [x] Show the username and creation time for each post
-- [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
+- [x] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
 - User Profiles:
-   - [ ] Allow the logged in user to add a profile photo
+   - [x] Allow the logged in user to add a profile photo
    - [x] Display the profile photo with each post
    - [x] Tapping on a post's username or profile photo goes to that user's profile page
 - [x] User can comment on a post and see all comments for each post in the post details screen.
@@ -37,7 +37,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Profile tab
 
 
 ## Video Walkthrough

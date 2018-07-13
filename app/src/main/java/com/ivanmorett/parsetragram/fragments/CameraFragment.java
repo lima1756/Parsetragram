@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ivanmorett.parsetragram.GlideApp;
+import com.ivanmorett.parsetragram.constants.Images;
 import com.ivanmorett.parsetragram.controllers.BitmapController;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
@@ -126,6 +128,10 @@ public class CameraFragment extends Fragment{
         post.setDescription(description);
         post.setImage(new ParseFile(image));
         post.setUser(ParseUser.getCurrentUser());
+
+        GlideApp.with(getContext())
+                .load("https://image.ibb.co/cNvfMo/spinner.gif")
+                .into(imgPreview);
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
