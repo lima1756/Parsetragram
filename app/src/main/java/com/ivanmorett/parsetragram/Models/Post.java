@@ -6,7 +6,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -36,6 +38,36 @@ public class Post extends ParseObject {
 
     public void setUser(ParseUser user){
         put(KEY_USER, user);
+    }
+
+    public int getLikesCount() {
+        List<String> list = getList("likedBy");
+        return list!=null?list.size():0;
+    }
+
+    public boolean isLiked() {
+        List<String> list = getList("likedBy");
+        return list!=null && list.contains(ParseUser.getCurrentUser().getObjectId());
+    }
+
+    public void addLike(String id) {
+        List<String> list = getList("likedBy");
+        if(list==null)
+            list = new ArrayList<>();
+        list.add(id);
+        setLikedBy(list);
+    }
+
+    public void removeLike(String id){
+        List<String> list = getList("likedBy");
+        if(list==null)
+            list = new ArrayList<>();
+        list.remove(id);
+        setLikedBy(list);
+    }
+
+    private void setLikedBy(List<String> list){
+        put("likedBy", list);
     }
 
     public static class Query extends ParseQuery<Post>{

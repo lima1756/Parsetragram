@@ -60,15 +60,32 @@
         />
 
     <TextView
+        android:id="@+id/tvLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ivPostUserImage"
+        android:layout_below="@+id/btnLike"
+        android:layout_marginTop="5dp"
+        android:text="0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvLikeCount"
+        android:layout_alignTop="@id/tvLikeCount"
+        android:layout_alignBottom="@id/tvLikeCount"
+        android:text=" Likes" />
+
+    <TextView
         android:id="@+id/tvPostDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnLike"
         android:layout_margin="8dp"
-        android:layout_marginStart="8dp"
-        android:maxLines="2"
+        android:layout_below="@+id/tvLikeCount"
         android:ellipsize="end"
+        android:maxLines="2"
         android:text="TextView"
         android:textSize="16sp" />
 
@@ -81,4 +98,6 @@
         android:layout_marginTop="0dp"
         android:text="RelativeStamp"
         android:textSize="11sp" />
+
+
 </RelativeLayout>

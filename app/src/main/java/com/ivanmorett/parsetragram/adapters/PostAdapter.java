@@ -2,11 +2,11 @@ package com.ivanmorett.parsetragram.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +16,15 @@ import android.widget.TextView;
 
 import com.ivanmorett.parsetragram.CommentsActivity;
 import com.ivanmorett.parsetragram.GlideApp;
-import com.ivanmorett.parsetragram.Models.Comment;
 import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
 import com.ivanmorett.parsetragram.constants.Images;
 import com.ivanmorett.parsetragram.controllers.TimeFormatterController;
 import com.ivanmorett.parsetragram.interfaces.ChangeableFragment;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,6 +68,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         holder.tvPostDate.setText(TimeFormatterController.getRelativeTimeAgo(post.getUpdatedAt().toString()));
 
+        holder.tvLikeCount.setText(post.getLikesCount()+"");
+
+        if(post.isLiked()){
+            holder.btnLike.setBackground(context.getDrawable(R.drawable.ufi_heart_active));
+            holder.btnLike.setBackgroundTintList(context.getResources().getColorStateList(R.color.red_5));
+        }
+        else{
+            holder.btnLike.setBackground(context.getDrawable(R.drawable.ufi_heart));
+            holder.btnLike.setBackgroundTintList(context.getResources().getColorStateList(R.color.black));
+        }
+
         GlideApp.with(context)
                 .load(post.getImage().getUrl())
                 .into(holder.ivPostImage);
@@ -97,6 +106,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         @BindView(R.id.btnComments) Button btnComments;
         @BindView(R.id.tvPostDescription) TextView tvPostDescription;
         @BindView(R.id.tvPostDate) TextView tvPostDate;
+        @BindView(R.id.tvLikeCount) TextView tvLikeCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -105,7 +115,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         @OnClick(R.id.btnLike)
         public void like(){
-            // TODO
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Post post = mPosts.get(position);
+                if(post.isLiked())
+                    post.removeLike(ParseUser.getCurrentUser().getObjectId());
+                else
+                    post.addLike(ParseUser.getCurrentUser().getObjectId());
+                post.saveInBackground();
+                notifyItemChanged(position);
+
+            }
+
         }
 
         @OnClick({R.id.btnComments, R.id.ivPostImage})
