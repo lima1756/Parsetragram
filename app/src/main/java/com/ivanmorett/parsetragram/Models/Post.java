@@ -96,5 +96,10 @@ public class Post extends ParseObject {
             setSkip(limit * page);
             return this;
         }
+
+        public Query filterByUser(ParseUser user){
+            whereEqualTo("user", user);
+            return this;
+        }
     }
 }

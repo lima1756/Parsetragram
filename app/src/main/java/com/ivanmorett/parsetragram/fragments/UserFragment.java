@@ -14,15 +14,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ivanmorett.parsetragram.GlideApp;
 import com.ivanmorett.parsetragram.LoginActivity;
+import com.ivanmorett.parsetragram.Models.Post;
 import com.ivanmorett.parsetragram.R;
+import com.ivanmorett.parsetragram.adapters.ImagesAdapter;
 import com.ivanmorett.parsetragram.constants.Images;
 import com.ivanmorett.parsetragram.controllers.BitmapController;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -32,6 +36,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +47,8 @@ public class UserFragment extends Fragment{
     @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
     @BindView(R.id.tvUserName) TextView tvUserName;
     @BindView(R.id.btnProfileButton) Button btnProfileButton;
+    @BindView(R.id.gvUserPosts) GridView gvUserPosts;
+
     private boolean selfUser;
     private ParseUser user;
     private final static int PICK_IMAGE = 1;
@@ -82,6 +89,24 @@ public class UserFragment extends Fragment{
                 .into(ivProfileImage);
 
 
+        new Post.Query()
+                .orderByDescending("createdAt")
+                .filterByUser(user)
+                .findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> objects, ParseException e) {
+                if(e==null){
+
+                    ImagesAdapter imagesAdapter = new ImagesAdapter(getContext(), objects);
+                    gvUserPosts.setAdapter(imagesAdapter);
+
+                }
+                else{
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
 
     }
@@ -117,9 +142,9 @@ public class UserFragment extends Fragment{
             try {
                 InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
                 Bitmap bmp = BitmapFactory.decodeStream(inputStream);
-                ParseUser user = ParseUser.getCurrentUser();
-                user.put("profileImg", new ParseFile(BitmapController.saveToFile(getContext(), bmp)));
-                user.saveInBackground(new SaveCallback() {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                currentUser.put("profileImg", new ParseFile(BitmapController.saveToFile(getContext(), bmp)));
+                currentUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
                         if(e==null) {
