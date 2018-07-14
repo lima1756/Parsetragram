@@ -45,7 +45,9 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 *SOON* 
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/lima1756/Parsetragram/blob/master/gif1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/lima1756/Parsetragram/blob/master/gif2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/lima1756/Parsetragram/blob/master/gif3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Credits
 
