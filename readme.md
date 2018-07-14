@@ -56,7 +56,7 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## Notes
 
-*SOON*
+It wasn't a difficult assignment cause it was basically an implementation of waht we learned in the past assignments. I think the most difficult part was the change profile image cause it crashed the IDE and the app.
 
 ## License
 
